@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     const { email, password } = this.loginForm.value;
 
-    this.authService.login( email, password )
-      .subscribe( resp => {
-        // console.log(resp);
+    this.authService.login( email, password ).subscribe( ok => {
+      console.log(ok)
+        if( ok === true ) {
+          this.router.navigateByUrl('/user/home')
+        } else {
+          // TODO:  mostrar mensaje de error
+        }
       });
-    // this.router.navigateByUrl('/user/home')
   }
-
 }

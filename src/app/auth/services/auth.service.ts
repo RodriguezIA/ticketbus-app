@@ -26,10 +26,14 @@ export class AuthService {
     return this.http.post<AuthResponse>(url, body).pipe(
       tap( resp => {
         if (resp.ok){
+          this._usuario = {
+            uid: resp.uid!,
+            nombre: resp.nombre!,
+          }
         }
       }),
       map( resp => resp.ok),
-      catchError( err => of(false))
+      catchError( err => of(err.error.msg))
     );
   }
 }
